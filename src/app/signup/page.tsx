@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -9,19 +9,19 @@ import {
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
 
-export function SignupFormDemo() {
+const SignupFormDemo: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
   };
+
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-        Welcome to Fincorp india
+        Welcome to Fincorp India
       </h2>
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
-        Login to Fincorp if you can because we don&apos;t have a login flow
-        yet
+        Login to Fincorp if you can because we don&apos;t have a login flow yet
       </p>
 
       <form className="my-8" onSubmit={handleSubmit}>
@@ -97,7 +97,7 @@ export function SignupFormDemo() {
       </form>
     </div>
   );
-}
+};
 
 const BottomGradient = () => {
   return (
@@ -115,10 +115,7 @@ const LabelInputContainer = ({
   children: React.ReactNode;
   className?: string;
 }) => {
-  return (
-    <div className={cn("flex flex-col space-y-2 w-full", className)}>
-      {children}
-    </div>
-  );
+  return <div className={cn("flex flex-col space-y-2 w-full", className)}>{children}</div>;
 };
+
 export default SignupFormDemo;

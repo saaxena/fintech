@@ -1,7 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HoveredLink, Menu, MenuItem, ProductItem } from "./ui/navbar-menu";
-import personalLoanImage from '../../public/images/personal-loan.png';
 import creditcardImage from '../../public/images/credit-card.png';
 import mortageloanImage from '../../public/images/mortage-loan.png';
 import businessloanImage from '../../public/images/business-loan.png';
@@ -33,37 +32,29 @@ const Navbar: React.FC<{ className?: string }> = ({ className }) => {
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Products">
           <div className="text-sm grid grid-cols-2 gap-10 p-4">
-            <ProductItem
+            <DynamicImageItem
               title="Personal Loan"
               href="https://algochurn.com"
-              src={personalLoanImage}
-              width={300}
-              height={200}
+              imagePath="/images/personal-loan.png"
               description="Prepare for tech interviews like never before."
             />
-            <ProductItem
+            <DynamicImageItem
               title="Business Loan"
               href="https://tailwindmasterkit.com"
-              src={businessloanImage}
+              imagePath="/images/business-loan.png"
               description="Production ready Tailwind css components for your next project"
-              width={0}
-              height={0}
             />
-            <ProductItem
+            <DynamicImageItem
               title="Mortage Loan"
               href="https://gomoonbeam.com"
-              src={mortageloanImage}
+              imagePath="/images/mortage-loan.png"
               description="Never write from scratch again. Go from idea to blog in minutes."
-              width={0}
-              height={0}
             />
-            <ProductItem
+            <DynamicImageItem
               title="Credit Card"
               href="https://userogue.com"
-              src={creditcardImage}
+              imagePath="/images/credit-card.png"
               description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
-              width={0}
-              height={0}
             />
           </div>
         </MenuItem>
@@ -77,6 +68,37 @@ const Navbar: React.FC<{ className?: string }> = ({ className }) => {
         </MenuItem>
       </Menu>
     </div>
+  );
+};
+
+const DynamicImageItem: React.FC<{
+  title: string;
+  href: string;
+  imagePath: string;
+  description: string;
+}> = ({ title, href, imagePath, description }) => {
+  const [src, setSrc] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const importImage = async () => {
+      const { default: imgSrc } = await import(`../../public${imagePath}`);
+      setSrc(imgSrc);
+    };
+
+    importImage();
+  }, [imagePath]);
+
+  if (!src) {
+    return null; // or return a loading state if necessary
+  }
+
+  return (
+    <ProductItem
+      title={title}
+      href={href}
+      src={src}
+      description={description}
+    />
   );
 };
 
