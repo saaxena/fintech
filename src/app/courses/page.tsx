@@ -160,4 +160,3 @@ export const BackgroundBeams = ({ className }: { className?: string }) => {
     </div>
   );
 };
-export default BackgroundBeamsDemo;
